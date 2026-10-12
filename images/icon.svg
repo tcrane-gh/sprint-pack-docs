@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" viewBox="0 0 64 64">
+  <title>Sprint Pack</title>
+  <rect width="64" height="64" rx="14" fill="#2952CC"/>
+  <!-- Scope: flat, then stepping up when work is added after the start -->
+  <path d="M13 19 H31 V13 H51" fill="none" stroke="#A8BFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Remaining work burning down -->
+  <path d="M13 28 H23 V36 H33 V44 H42 V51 H51" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
