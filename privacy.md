@@ -6,7 +6,7 @@ title: Privacy policy
 
 # Privacy policy
 
-Effective 12 October 2026. This policy covers Sprint Pack, an app for Jira Cloud sold on the Atlassian Marketplace by Weave Commons ("we").
+Effective 13 October 2026. This policy covers Sprint Pack, an app for Jira Cloud sold on the Atlassian Marketplace by Weave Commons ("we").
 
 ## Where your data lives
 
