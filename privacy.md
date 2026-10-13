@@ -41,6 +41,10 @@ Nothing, by the app. Files you export are built in your browser and saved by you
 
 We don't sell personal data and don't use it for advertising.
 
+## Services we use
+
+Support and security email is handled by Fastmail (Fastmail Pty Ltd, Australia), which stores it on servers in the United States. Fastmail processes it only to deliver and store our mail.
+
 ## How long data is kept
 
 While the app is installed. When it's uninstalled, the app deletes the BI data it published, and Atlassian keeps the app's storage for 28 days before deleting it. Support emails are kept as long as needed to answer them, and at most 2 years.

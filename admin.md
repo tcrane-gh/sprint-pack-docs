@@ -7,7 +7,18 @@ title: Admin page
 <a id="admin"></a>
 # Admin page
 
-**Jira settings → Apps → Sprint Pack.** For Jira admins. Top to bottom: the [license](#license) when it needs a word, what needs attention, [fields on issues](#fields-not-showing), health, the hourly budget, rebuilds, and BI data.
+**Jira settings → Apps → Sprint Pack.** For Jira admins. Top to bottom: the [license](#license) when it needs a word, [getting started](#first-steps) during the trial, what needs attention, [fields on issues](#fields-not-showing), health, the hourly budget, rebuilds, and BI data.
+
+<a id="first-steps"></a>
+## Getting started (during the trial)
+
+While the trial runs, the top of the admin page lists three steps to see Sprint Pack working on your site:
+
+1. **Open a board's Sprint scope page and look at its last closed sprint.** The page links to a board whose last closed sprint is already computed. If none is yet, it says how long the history scan has left. This step ticks itself once anyone sees a closed sprint's figures on the Sprint scope page or in the sprint menu.
+2. **Add the Sprint scope widget to a dashboard.** See [dashboard widget](views.md#widget). This step ticks itself once a dashboard shows a board's figures.
+3. **Send the [request kit](request-kit.md#request-kit) to whoever approves apps on your site.** It covers the cost, the security answers and what changes in Jira. Sprint Pack can't tell when you've sent it, so tick it with **Mark as sent**.
+
+The steps are for the whole site, not per admin. Once the trial ends the section goes away.
 
 <a id="needs-attention"></a>
 ## Needs attention

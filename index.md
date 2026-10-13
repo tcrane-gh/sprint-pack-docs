@@ -17,6 +17,7 @@ Sprint Pack shows what happened to each sprint's scope: what was committed at th
 - [Exports](exports.md): CSV, Excel, slides, the copy summary and snapshots, and how links behave in spreadsheets.
 - [Admin page](admin.md): what needs attention, health, the point budget, rebuilds and backfill.
 - [BI tools](bi.md): publishing sprint totals for Power BI, Excel, Google Sheets, Looker Studio, Tableau and warehouses.
+- [Request kit](request-kit.md): for whoever approves apps on your site: cost, security and what changes in Jira.
 - [Support](support.md), [privacy policy](privacy.md) and [security](security.md).
 
 ## The short version
