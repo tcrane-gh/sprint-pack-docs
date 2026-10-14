@@ -25,7 +25,8 @@ Sprint Pack shows the same sprint view in four places, plus a portfolio across b
 **Finding it:** under Jira's new navigation a project shows the **Sprint scope** tab only once someone adds it with **+** beside the project's tabs. Without the tab, the same view is in **Apps → Sprint portfolio**: a board's name there opens its view.
 
 - **Controls:** the board (the project's boards), how many sprints, issues or the board's estimates, and Refresh.
-- **Each row:** the sprint's name and state, its dates, its goal, and its [buckets](numbers.md#buckets): Committed, Added, Removed, Completed, Not completed, Carried over, Re-estimated, and [Drift](numbers.md#drift).
+- **Each row:** the sprint's name and state, its dates, and its [buckets](numbers.md#buckets): Committed, Added, Removed, Completed, Not completed, Carried over, Re-estimated, and [Drift](numbers.md#drift).
+- **Sprint goals** show on a line of their own under each sprint, across the whole table. **Show sprint goals** above the table hides or shows them.
 - **Flags:** a sprint with bad data shows an [anomaly](anomalies.md) label. Completion cells marked "≈" are [approximate](numbers.md#approximate).
 - **Computing:** a sprint not yet computed shows "computing" instead of numbers; the page refreshes itself. See [computing](numbers.md#computing).
 - **Updating:** a sprint being computed again (after an update changed the counting rules, or a [rebuild](admin.md#rebuild)) keeps its earlier numbers, marked "updating", until the new ones are ready. Exports leave it out until then. The label links to [updating](numbers.md#updating).
