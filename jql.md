@@ -83,7 +83,7 @@ Most functions take `(sprint, board)`, both optional.
 issue in addedAfterSprintStart(sprint?, board?)
 ```
 
-**Issues added to the sprint after it started**, including issues created in it after the start and issues carried into it from another sprint's close. An issue removed and added back is not added (net change). Same rule as the [Added](numbers.md#added) column.
+**Issues added to the sprint after it started**, including issues created in it after the start and issues carried into it from another sprint's close. An issue removed and added back is not added (net change). Same rule as the [Taken on](numbers.md#added) column, which exports and BI data call "added".
 
 ```
 issue in addedAfterSprintStart()

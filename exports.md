@@ -39,7 +39,7 @@ A sprint the view shows as **computing** or **updating** is left out of an expor
 Then one table:
 
 - **Sprints:** one row per sprint: dates, goal, estimate field and unit, `countedAs`, [`approximate`](numbers.md#approximate), [`anomalies`](anomalies.md), the issue count and estimate for every [bucket](numbers.md#buckets) (including completed from the commitment and completed outside the sprint), [`sayDo`](numbers.md#say-do), the [estimate change totals](numbers.md#drift), and `jqlCommitted`, `jqlAdded`, `jqlRemoved`, `jqlCompleted`, `jqlNotCompleted`, `jqlCarriedOver`: the search behind each count, as text you can paste into Jira's issue search.
-- **Issues:** one row per issue and sprint: key, summary, type, status, assignee, the buckets it's in, when it was added or removed and by whom, whether it was completed, where it was carried to, and its estimates (Jira's value at the start, when added and at the close; the current value; re-estimates; net change).
+- **Issues:** one row per issue and sprint: key, summary, type, status, assignee, the buckets it's in, when it was taken on (the `addedAt` and `addedBy` columns) or removed and by whom, whether it was completed, where it was carried to, and its estimates (Jira's value at the start, when taken on and at the close; the current value; re-estimates; net change), and its [reason](views.md#reasons), who wrote it and when (`reason`, `reasonBy`, `reasonAt`), then whether it's [from outside the team](views.md#outside-team) and why (`outsideTeam`, `outsideReason`, empty while the board's guess is off): the last five columns.
 - **Estimate history:** one row per estimate change: from, to, when, who, and whether it was before the start, during the sprint or after the close.
 
 Dates carry your site's time-zone offset. Time estimates are in hours (and seconds, in the Issues and History files).
@@ -61,11 +61,11 @@ In the portfolio, each board row has its own **CSV** (sprints) and **Excel** (al
 
 **A .pptx built from the view's numbers: one slide per board.**
 
-- **Board slide:** the title with the period (calendar days in your site's time zone); the active sprint's goal; the velocity chart (committed against completed, the average in the title); the say/do and scope change line chart; and a table of the sprints shown. More than 8 sprints continue on a second slide, "(continued)".
-- **Portfolio slide:** say/do by board (average and last sprint), and a table of ratios per board with medians per label or project. Points are never added across boards with different units. The slide shows the first 12 boards and says how many more there are; the snapshot has them all.
+- **Board slide:** the title with the period (calendar days in your site's time zone); the active sprint's goal; three charts side by side: velocity (committed, done of committed, and taken on and done, the average in the title), say/do (closed sprints only; the active sprint has no point) and scope change; a grey "Why scope changed: …" box for you to replace with your own words before presenting; and a table of the sprints shown (Completed reads "9 + 2", committed + taken on, when work taken on was done; the active sprint's say/do cell is "–"). More than 8 sprints continue on a second slide, "(continued)".
+- **Portfolio slide:** each board's most recent say/do beside its own average, and a table in the page's order (most recent sprint, scope change, taken on, say/do, average say/do, trend, sprints) with medians per label or project. Points are never added across boards with different units. The slide shows the first 12 boards and says how many more there are; the snapshot has them all.
 - **The charts are real PowerPoint charts,** with their data inside ("Edit data" works). Value axes start at zero, so bar heights compare fairly.
 - **The active sprint** is labelled "(in progress)" in the charts and table. Its bars are hatched, and its line points are hollow on a dashed segment.
-- **It uses Office's default theme,** 16:9, with the "Title Only" layout. Paste the slides into your own deck with **Use destination theme** to take its fonts and colours.
+- **It uses Office's default theme,** 16:9, with the "Title Only" layout. Paste the slides into your own deck with **Use destination theme** to take its fonts. The chart series keep the views' colours (blue committed, green done, purple taken on, orange removed), so a chart means the same on the slide as on the page; other series take the theme's colours.
 - **The footer** says "Counted from the issues visible to <your name> on <date> · Sprint Pack", with a link to how the numbers are counted.
 - Google Slides may turn imported charts into pictures.
 
@@ -75,7 +75,7 @@ In the portfolio, each board row has its own **CSV** (sprints) and **Excel** (al
 **One slide for a sprint review: the sprint's numbers, then what changed and who changed it.**
 
 - **Which sprint:** the one the sprint menu was opened from, otherwise the active sprint, otherwise the last closed one. The button names it.
-- **On the slide:** the sprint's dates and goal; say/do and scope change; a chart of committed, added, removed, completed and carried over; and a table of each issue added (by whom, when), removed (by whom, when) and carried over (to which sprint). A long list continues on further slides.
+- **On the slide:** the sprint's dates and goal first; then what was taken on after the start ("3 issues (2 bugs, 1 story)", and how many [from outside the team](views.md#outside-team) when the board has that on); then say/do with how much of the commitment was done and how much taken-on work was done (for an active sprint, what's done so far instead) and scope change; a grey "Why scope changed: …" box to fill in; a chart of committed, taken on, removed, done of committed, taken on and done, and carried over; and a table of each issue taken on (by whom, when), removed (by whom, when) and carried over (to which sprint), with its [reason](views.md#reasons) when one was given. A long list continues on further slides.
 - **Counted as you:** the list comes from the issues you can see, like the Issues export, and uses the same hourly budget.
 
 <a id="copy-summary"></a>
@@ -83,12 +83,13 @@ In the portfolio, each board row has its own **CSV** (sprints) and **Excel** (al
 
 **One plain sentence per sprint, from a fixed template, for email or chat.** For example:
 
-> Sprint 14: committed 18 points, delivered 16 of them (89%); 5 points added and 2 removed mid-sprint.
+> Sprint 14: committed 18 points, delivered 16 of them (88.9%); 5 points taken on and 2 removed after the start.
 
 - The wording never varies, and nothing is generated by AI.
-- Units are spelled out; approximate sprints say "(approximate)"; the active sprint says "(in progress)".
+- Units are spelled out; approximate sprints say "(approximate)"; the active sprint says "(in progress)" and gives what's done so far ("done so far: 3 of 10 committed") with no percentage: say/do is shown once a sprint closes.
 - The portfolio version gives medians across boards and never adds points across different units.
-- The text is dated and ends with who it was counted as.
+- Percentages are rounded to one decimal place, as in the table.
+- The text is dated and ends with the name of the person it was counted as, since whoever reads it may see different issues.
 - **Show a summary to copy** opens the text in a box; its copy button copies it all.
 
 <a id="snapshot"></a>
@@ -111,7 +112,7 @@ In the portfolio, each board row has its own **CSV** (sprints) and **Excel** (al
 3. **Issues** and 4. **History:** the same as the CSV exports.
 5. **Definitions:** one row per column and metric, with a link to its help.
 
-**People's names** appear where today's exports have them: the assignee, who added or removed an issue, and who changed an estimate. Think about who you send the file to, as you would with any Jira export.
+**People's names** appear where Jira records them: the assignee, who took on or removed an issue, who changed an estimate, and who wrote a [reason](views.md#reasons). The Share group says so under its buttons. Think about who you send the file to, as you would with any Jira export.
 
 **Why two people can see different numbers:** each count includes only issues the person counting could see. If the recipient's "Check it live" link finds more or fewer issues, the difference is issues one of you can't see, or changes since the snapshot was taken. See [hidden issues](numbers.md#hidden-issues).
 

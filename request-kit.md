@@ -11,7 +11,7 @@ For whoever approves apps on a Jira Cloud site: the Jira admin, security reviewe
 
 ## What it does
 
-Sprint Pack shows what happened to each sprint's scope: what was committed at the start, what was added and removed after it (and by whom), what was completed, and what was carried over. The numbers match Jira's own Sprint Report, and every number opens as a Jira search. Managers use it to explain a sprint's result to the people they report to, on a dashboard or in slides.
+Sprint Pack shows what happened to each sprint's scope: what was committed at the start, what was taken on and removed after it (and by whom), what was completed, and what was carried over. The numbers match Jira's own Sprint Report, and every number opens as a Jira search. Managers use it to explain a sprint's result to the people they report to, on a dashboard or in slides.
 
 ## What it costs
 
@@ -34,7 +34,7 @@ Each band of users has its own rate: $1.00 a user a month for the first 100, $0.
 - **Read-only on issues.** It never edits issues. It writes only its own 8 read-only fields, its stored search results and, if an admin turns on BI publishing, its own board properties.
 - **Your permissions apply.** Views and files count only the issues the viewer can see, as Jira's Sprint Report does.
 - **No credentials.** It doesn't ask for or store passwords or API tokens.
-- **Personal data.** It stores Atlassian account IDs (for example, who added an issue to a sprint) and caches the matching display names for a day. It doesn't store issue summaries or descriptions.
+- **Personal data.** It stores Atlassian account IDs (for example, who added an issue to a sprint) and caches the matching display names for a day. It doesn't store issue summaries or descriptions. People can write a short reason for a scope change; that text is stored in Atlassian's Forge storage with its author's account ID.
 - The full answers are in the [security page](security.md), the [privacy policy](privacy.md) and the Privacy and Security tab of the Marketplace listing.
 
 ## What changes in your Jira

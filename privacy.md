@@ -6,7 +6,7 @@ title: Privacy policy
 
 # Privacy policy
 
-Effective 13 October 2026. This policy covers Sprint Pack, an app for Jira Cloud sold on the Atlassian Marketplace by Weave Commons ("we").
+Effective 14 October 2026. This policy covers Sprint Pack, an app for Jira Cloud sold on the Atlassian Marketplace by Weave Commons ("we").
 
 ## Where your data lives
 
@@ -16,8 +16,10 @@ Sprint Pack runs on Atlassian's Forge platform and has no server of its own. Eve
 
 In Atlassian's storage for your site:
 
-- **Sprint history:** for each sprint, its dates and state, and which issues joined, left, were completed or carried over, with their estimates and statuses. Issues are stored by ID and key; their summaries and descriptions are not stored.
-- **Who made a change:** the Atlassian account ID of the person who moved an issue in or out of a sprint, published or unpublished BI data, changed BI labels, or dismissed an inferred reopen.
+- **Sprint history:** for each sprint, its dates and state, and which issues joined, left, were completed or carried over, with their estimates, statuses and issue types. Issues are stored by ID and key; their summaries and descriptions are not stored.
+- **Who made a change:** the Atlassian account ID of the person who moved an issue in or out of a sprint, wrote a reason for a scope change, published or unpublished BI data, changed BI labels, or dismissed an inferred reopen.
+- **Reasons for scope changes:** the text people write to explain why an issue was taken on or removed after a sprint's start (at most 500 characters each), with the author's account ID and the time. Anyone who can see the board can read, change or clear them. A reason is deleted with the issue's other sprint data when the issue is deleted, and with all of the app's storage when the app is uninstalled.
+- **For the "from outside the team" guess:** each issue's reporter (as an account ID) and the keys of issues linked to it; a board's setting with the account ID of the admin who changed it; corrections with the account ID of who made them; and, only while a board has the reporter signal on, the account IDs of the people in its projects' roles, kept for six hours.
 - **Display names:** the names of the people above, cached so the admin page can show them, and read again from Jira after a day.
 - **Access caches:** which boards a viewer can see, keyed by account ID, kept for up to an hour so pages load faster.
 - **Settings and status:** the app's settings, its point budget and the state of its background work.

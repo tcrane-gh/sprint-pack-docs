@@ -7,13 +7,13 @@ title: Anomalies
 <a id="anomalies"></a>
 # Anomalies
 
-**Sprint Pack flags a sprint when its data is wrong or unusual in a way that would distort averages: dates in the wrong order, a start moved by days, a sprint closed within the hour, nothing committed, a reopen, or an estimation change mid-sprint.**
+**Sprint Pack flags a sprint when its data is wrong or unusual in a way that would distort averages: dates in the wrong order, a start date moved by days, a sprint closed within an hour, a sprint started empty, a reopen, or an estimation field changed during the sprint.**
 
 Flags are about bad data, not performance. A sprint with a 450% scope change, a low say/do or many carry-overs is not flagged. See [why flagged sprints are left out](#left-out).
 
 **Where flags show:**
 
-- One label per flagged sprint row, such as "dates reversed", linking to its section below. A sprint with several flags shows the first and "+1".
+- One grey label per flagged sprint row, such as "dates reversed", linking to its section below. A sprint with several flags shows the first and "+1". The label's tooltip says the sprint is left out of averages, so they reflect the team's sprints rather than this data, and gives the fix.
 - Exports and snapshots: an `anomalies` column, with the codes below joined by `; `.
 - Published BI data: the same `anomalies` column.
 - The admin page lists flagged sprints under "Needs attention".
@@ -32,19 +32,19 @@ Code: `dates-reversed`.
 - Fix: correct the sprint's dates in Jira where Jira allows it; the flag clears on the next refresh. If the dates can't be changed, the flag stays and the sprint stays out of averages.
 
 <a id="start-moved"></a>
-## Start moved
+## Start date moved
 
 Code: `start-moved`.
 
 **The sprint's start date differs by more than 24 hours from the moment it was actually started.**
 
 - The start date is the one entered in Jira's "Start sprint" dialog, or set later by editing the sprint. It can be backdated ("we forgot to press Start on Monday") or set in the future.
-- Sprint Pack counts from the start date, as Jira's Sprint Report does. With a future start, issues added between pressing Start and the start date count as committed, not added. With a backdated start, issues added before pressing Start but after the start date count as added.
+- Sprint Pack counts from the start date, as Jira's Sprint Report does. With a future start, issues added between pressing Start and the start date count as committed, not taken on. With a backdated start, issues added before pressing Start but after the start date count as taken on.
 - **Only flagged when Sprint Pack saw the sprint start.** Never set for sprints started before Sprint Pack was installed.
-- Fix: edit the sprint in Jira and set its start date to within a day of when it was really started. Sprint Pack then counts committed and added from the corrected date, and the flag clears on the next refresh. If Jira won't let you change the dates, for example after the sprint has closed, the flag stays and the sprint stays out of averages.
+- Fix: edit the sprint in Jira and set its start date to within a day of when it was really started. Sprint Pack then counts committed and taken on from the corrected date, and the flag clears on the next refresh. If Jira won't let you change the dates, for example after the sprint has closed, the flag stays and the sprint stays out of averages.
 
 <a id="very-short"></a>
-## Very short
+## Closed within an hour
 
 Code: `very-short`.
 
@@ -52,8 +52,10 @@ Code: `very-short`.
 
 Usually a test sprint, or a sprint started and closed by mistake.
 
+- Fix: none in Jira, which doesn't let you change a closed sprint's dates. A test sprint is the reason the flag exists, so it stays, and the sprint stays out of averages while remaining in the table and exports.
+
 <a id="nothing-committed"></a>
-## Nothing committed
+## Started empty
 
 Code: `nothing-committed`.
 
@@ -63,6 +65,7 @@ Code: `nothing-committed`.
 - Common causes: the sprint was started empty and filled afterwards, or every issue was already done at the start (see [done at the start](numbers.md#done-at-start)).
 - Only closed sprints are flagged.
 - The flag looks at all of the sprint's issues, not only the ones you can see. A sprint whose committed issues are all hidden from you shows 0 committed, but it isn't flagged.
+- Fix: the issues were added at or after Start, so a start date set after the adds would make them committed and clear the flag. Jira doesn't let you change a closed sprint's dates, though, so for a closed sprint the flag stays and the sprint stays out of averages. Next time, add the issues before pressing Start, or set the start date to when the work really began.
 
 <a id="reopened"></a>
 ## Reopened
@@ -77,7 +80,7 @@ Code: `reopened`.
 - Fix: an inferred reopen can be wrong, for example when many issues were moved between sprints at once. If the Sprint Report shows no reopen, a Jira admin (on the admin page) or one of the board's admins (in the board panel on the Sprint scope page) can dismiss it, and the flag clears. See [inferred reopens](admin.md#inferred-reopens). An observed reopen really happened, so it stays.
 
 <a id="estimation-changed-mid-sprint"></a>
-## Estimation changed mid-sprint
+## Estimation field changed
 
 Code: `estimation-changed-mid-sprint`.
 
@@ -85,6 +88,7 @@ Code: `estimation-changed-mid-sprint`.
 
 - Jira and Sprint Pack recount every past sprint with the board's current field, so this sprint's estimates are in a field the team wasn't using for all of it.
 - The view also shows a warning naming the old and new fields. See [when a board's estimation changes](numbers.md#estimation-change).
+- Fix: none. Changing the field back is a second change during the sprint, so the flag stays. The sprint's issue counts are unaffected; only its estimates are in a field the team didn't use for all of it, which is why it stays out of averages.
 
 <a id="left-out"></a>
 ## Why flagged sprints are left out of averages

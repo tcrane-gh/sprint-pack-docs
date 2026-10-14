@@ -6,7 +6,7 @@ title: Sprint Pack help
 
 # Sprint Pack help
 
-Sprint Pack shows what happened to each sprint's scope: what was committed at the start, what was added and removed after it, what was completed, and what was carried over. Every number is a Jira search you can open.
+Sprint Pack shows what happened to each sprint's scope: what was committed at the start, what was taken on and removed after it, what was completed, and what was carried over. Every number is a Jira search you can open.
 
 ## Pages
 

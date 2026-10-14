@@ -70,7 +70,7 @@ Every sprint is split into the same buckets. Each is a Jira search you can open 
 | Bucket | In short | Short header (dashboard) |
 |---|---|---|
 | [Committed](#committed) | In the sprint when it started | Start |
-| [Added](#added) | Added after the start | Add |
+| [Taken on](#added) | Taken on after the start | Add |
 | [Removed](#removed) | Removed after the start | Rem |
 | [Completed](#completed) | In the last column at close | Done |
 | [Not completed](#not-completed) | Still in the sprint at close, not in the last column | Open |
@@ -82,15 +82,15 @@ Two more appear in files and BI data:
 - **Completed from the commitment** (`completedFromCommitment`): completed issues that were also committed. It drives [say/do](#say-do).
 - **Completed outside the sprint** (`completedOutside`): issues already done at the start that stayed done. See [done at start](#done-at-start).
 
-An issue can be in several buckets: added and completed, or committed, not completed and carried over.
+An issue can be in several buckets: taken on and completed, or committed, not completed and carried over.
 
 **Counts and points.** Every bucket has an issue count and, on a board with estimates, a point total. Points use the estimate at a fixed moment:
 
 | Bucket | Estimate taken |
 |---|---|
 | Committed | At the start (also for issues removed later) |
-| Added | When first added |
-| Removed | At the start for committed issues, when added for added ones |
+| Taken on | When first taken on |
+| Removed | At the start for committed issues, when taken on for the others |
 | Completed, not completed, carried over | At the close (the current value while the sprint is active) |
 
 <a id="committed"></a>
@@ -103,20 +103,22 @@ Issues in the sprint at its start, except issues already in the board's last col
 - Issues already done at the start are left out. See [done at start](#done-at-start).
 
 <a id="added"></a>
-### Added
+### Taken on after the start
 
-Issues that joined the sprint after its start and before its close (or now, while it's active).
+Issues that joined the sprint after its start and before its close (or now, while it's active): requests the team took on once the sprint was under way.
+
+Exports, BI data, the [`addedAfterSprintStart()`](jql.md#addedaftersprintstart) function and the Jira field "Added after sprint start" still call it "added" (`issues_added`, `addedAt`), so files and searches you already use keep working.
 
 - Issues created directly in the sprint after the start count.
 - Issues carried into this sprint from another sprint's close, while this one is active, count.
-- **Net change:** an issue removed after the start and added back before the close is neither added nor removed.
+- **Net change:** an issue removed after the start and put back before the close is neither taken on nor removed.
 
 <a id="removed"></a>
 ### Removed
 
 Issues that left the sprint after its start and were still gone at the close.
 
-- An issue added after the start and removed again is both added and removed.
+- An issue taken on after the start and removed again is both taken on and removed.
 - Changes Jira writes when a sprint is reopened or deleted aren't removals: they don't count.
 - **Limit for sprints computed from history:** to find an issue that left a sprint before Sprint Pack was watching, the app searches the sprint's board filters. An issue that has since left every board filter (moved to another project, or the filter edited) can't be found, so it's missing from Removed. Sprints Sprint Pack saw happen live aren't affected.
 
@@ -128,6 +130,7 @@ Issues in the board's last column at the sprint's close, inside the board's filt
 - **Done at the start doesn't count:** an issue already in the last column at the start and still there at the close is "completed outside of this sprint". An issue done at the start, reopened and done again during the sprint is completed in it.
 - **While the sprint is active,** completed means in the last column now ("so far"). The views read the active sprint's statuses when they load (at most a minute old). If Sprint Pack's hourly budget for views is used up, they use the statuses from the last hourly update and say so; **Refresh** after the top of the hour.
 - The board's columns are the ones Sprint Pack saved at the close. For a sprint that closed before Sprint Pack saw it, today's columns are used: see [approximate](#approximate).
+- **Completed = committed and done + taken on and done.** The views show the two parts as "9 + 2" when work taken on after the start was done. The first part is [completed from the commitment](#buckets), which drives [say/do](#say-do). The drill-down searches are `issue in completedInSprint(X) AND issue in committedAtSprintStart(X)` and `issue in completedInSprint(X) AND issue not in committedAtSprintStart(X)`.
 
 <a id="not-completed"></a>
 ### Not completed
@@ -145,7 +148,7 @@ Issues not completed at the close that are in a later sprint on the same board: 
 <a id="re-estimated"></a>
 ### Re-estimated
 
-Issues whose estimate, on the board's estimation field, changed while they were in the sprint: between the start (or the moment they were added) and the close.
+Issues whose estimate, on the board's estimation field, changed while they were in the sprint: between the start (or the moment they were taken on) and the close.
 
 - A change before the start is "refined before start", not a re-estimate.
 - Logging work changes the remaining estimate, never the original, so it's never a re-estimate.
@@ -158,7 +161,7 @@ Issues whose estimate, on the board's estimation field, changed while they were 
 
 **Drift is how much the sprint's estimates moved: the estimate at the close minus Jira's value, summed over the sprint's work.**
 
-- **Jira's value** is the estimate the reports count: at the start for a committed issue, when first added for an added one.
+- **Jira's value** is the estimate the reports count: at the start for a committed issue, when first taken on for one taken on later.
 - **At the close** means the estimate at the last close, or the current value while the sprint is active.
 - **The sprint's work** is the issues in the sprint at the end, except ones done at the start.
 - Issues with no estimate at the start are left out of drift; they're counted separately (see [unestimated](#unestimated)).
@@ -168,7 +171,7 @@ Issues whose estimate, on the board's estimation field, changed while they were 
 <a id="unestimated"></a>
 ### Unestimated at the start
 
-An issue with no estimate at the start (or when it was added) is its own category, never an infinite percentage.
+An issue with no estimate at the start (or when it was taken on) is its own category, never an infinite percentage.
 
 - The table shows the count beside the drift: "(2 unestimated at start)". On a dashboard, `*` after the drift means some issues were unestimated at the start; hover for the count.
 - A sprint that's mostly unestimated isn't flagged as an anomaly.
@@ -178,7 +181,8 @@ An issue with no estimate at the start (or when it was added) is its own categor
 
 **Say/do = completed from the commitment ÷ committed.** It answers "of what we committed to at the start, how much did we finish?"
 
-- Work added after the start doesn't count towards say/do, even if completed. The [velocity ratio](#velocity-ratio) includes it.
+- **Say/do is shown once a sprint closes.** While a sprint is active, the views, the summary and the slides give its progress instead ("5 of 11 committed done so far"), and the say/do chart leaves it out.
+- Work taken on after the start doesn't count towards say/do, even if completed. The [velocity ratio](#velocity-ratio) includes it.
 - Counted in issues or in estimates, following the view's toggle.
 - A sprint with nothing committed has no say/do: it shows "—", never 0%. A closed sprint like that is also flagged [nothing committed](anomalies.md#nothing-committed).
 - In BI data, `sayDo` uses estimates and `sayDoIssues` uses issue counts. In the Sprints export, `sayDo` uses estimates, so it's empty on a board without estimates; work it out from `issues_completedFromCommitment ÷ issues_committed`.
@@ -186,14 +190,14 @@ An issue with no estimate at the start (or when it was added) is its own categor
 <a id="scope-change"></a>
 ## Scope change
 
-**Scope change = (added + removed) ÷ committed.** It can be well over 100%.
+**Scope change = (taken on + removed) ÷ committed.** It can be well over 100%.
 
 A big scope change is never flagged as an anomaly.
 
 <a id="velocity"></a>
 ## Velocity
 
-The velocity chart shows committed against completed per sprint, like Jira's velocity chart.
+The velocity chart shows, per sprint, what was committed at the start, how much of that was done, and how much work taken on after the start was done. The last two add up to completed, the bar in Jira's velocity chart.
 
 - **The average** in its title is the mean of completed over the closed sprints shown. The active sprint is left out, and so are [sprints with anomaly flags](anomalies.md#left-out); the note says how many were left out.
 - The narrow widget shows the same average as a tile.
@@ -201,12 +205,12 @@ The velocity chart shows committed against completed per sprint, like Jira's vel
 <a id="velocity-ratio"></a>
 ## Velocity ratio
 
-**Velocity ratio = completed ÷ committed.** Unlike say/do it includes added work that was completed, so it can be over 100%. It's the ratio behind Jira's velocity chart.
+**Velocity ratio = completed ÷ committed.** Unlike say/do it includes work taken on after the start that was completed, so it can be over 100%. It's the ratio behind Jira's velocity chart.
 
 <a id="carry-over-rate"></a>
 ## Carry-over rate
 
-**Carry-over = carried over ÷ (committed + added).** The share of the sprint's work that moved to a later sprint.
+**Carry-over = carried over ÷ (committed + taken on).** The share of the sprint's work that moved to a later sprint.
 
 **Averages across sprints** (in the portfolio and BI marts) are ratios of sums over the selected closed sprints: a small sprint doesn't weigh as much as a full one. Across boards, see [units](#units).
 
@@ -218,7 +222,7 @@ The velocity chart shows committed against completed per sprint, like Jira's vel
 - **Which sprints:** sprints that closed before Sprint Pack was installed, or whose close event Sprint Pack missed.
 - **Why:** Sprint Pack saves the board's columns and filter at the moment a sprint closes. Without that, it judges "done" against the board's **current** columns and filter. If the columns or the filter changed since, the completion counts can be off.
 - **Which numbers:** only the ones that depend on "done at the close": Completed, Not completed and Carried over, plus Completed outside the sprint and [say/do](#say-do), which are built from them. Those cells get "≈".
-- **Not affected:** Committed, Added and Removed come from the issues' history and are exact.
+- **Not affected:** Committed, Taken on and Removed come from the issues' history and are exact.
 - A line under the table says how many sprints are approximate. Files carry an `approximate` column (true or false) for each sprint.
 - Nothing to do: if the board's columns haven't changed since, the numbers are right.
 
@@ -237,7 +241,7 @@ The velocity chart shows committed against completed per sprint, like Jira's vel
 <a id="history-refreshing"></a>
 ## History refreshing
 
-The burndown needs each issue's sprint and status history. For issues Sprint Pack recorded before it kept that history, the burndown uses the moments it already knows (when the issue was added or removed) and its current status instead.
+The burndown needs each issue's sprint and status history. For issues Sprint Pack recorded before it kept that history, the burndown uses the moments it already knows (when the issue was taken on or removed) and its current status instead.
 
 - The chart says "history still being refreshed for some issues", and the narrow widget shows "history refreshing".
 - It clears when the sprint is recomputed under the current rules. Nothing to do.
@@ -248,7 +252,7 @@ The burndown needs each issue's sprint and status history. For issues Sprint Pac
 **When a board's estimation field changes, Jira recalculates every past sprint with the new field, and so does Sprint Pack.**
 
 - The view shows a warning with the date and the old and new fields.
-- A change during a sprint flags that sprint [estimation changed mid-sprint](anomalies.md#estimation-changed-mid-sprint).
+- A change during a sprint flags that sprint [estimation field changed](anomalies.md#estimation-changed-mid-sprint).
 - **Turned on time tracking by accident?** In a team-managed space, turning on time tracking can switch the board to Original estimate and zero past velocity. Switch it back under Board settings → Estimation → Story point estimate; Sprint Pack re-derives every sprint.
 
 <a id="settings-unreadable"></a>
