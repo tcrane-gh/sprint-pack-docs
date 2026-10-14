@@ -15,7 +15,7 @@ title: Exports
 | [All three (Excel)](#excel) | Sprint scope view; per board in the portfolio | One workbook |
 | [Download for slides](#slides) | Sprint scope view, sprint menu, widget, portfolio | A .pptx with editable charts |
 | [Slide for one sprint](#sprint-slide) | Sprint scope view, sprint menu | One slide: the sprint's numbers and what changed |
-| [Copy summary](#copy-summary) | Sprint scope view, portfolio | Plain sentences for email or chat |
+| [Show a summary to copy](#copy-summary) | Sprint scope view, portfolio | Plain sentences for email or chat |
 | [Share a snapshot](#snapshot) | Sprint scope view, portfolio | A dated, self-describing .xlsx |
 
 - **Which sprints:** the sprints the view shows (computing sprints are left out).
@@ -89,7 +89,7 @@ In the portfolio, each board row has its own **CSV** (sprints) and **Excel** (al
 - Units are spelled out; approximate sprints say "(approximate)"; the active sprint says "(in progress)".
 - The portfolio version gives medians across boards and never adds points across different units.
 - The text is dated and ends with who it was counted as.
-- Select the text and copy it.
+- **Show a summary to copy** opens the text in a box; its copy button copies it all.
 
 <a id="snapshot"></a>
 ## Snapshots

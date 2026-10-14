@@ -230,6 +230,7 @@ The velocity chart shows committed against completed per sprint, like Jira's vel
 - **When it happens:** a sprint shown for the first time (older sprints are computed when first asked about), and every sprint after an update that changes the counting rules, until it's recomputed.
 - **What you see:** the row shows "computing" (with progress, such as "120 of 400", when known) and no numbers. Charts leave the sprint out. JQL functions that need it answer with an "indexing" message (see [search errors](jql.md#search-errors)).
 - **It clears by itself.** Views refresh themselves while anything is computing.
+- <a id="updating"></a>**"Updating"** marks a sprint being computed again after an update to the counting rules or a [rebuild](admin.md#rebuild). It keeps its earlier numbers until the new ones are ready, and exports leave it out until then.
 - **How long:** usually minutes. On a big site, work runs within an hourly [budget](admin.md#budget): right after install or a rules update, history can take days to fill in, newest sprints first (see [backfill](admin.md#backfill)).
 - The admin page counts sprints computing or queued, older sprints that wait for someone to view them, and stuck sprints (no progress for over 2 hours). Only stuck ones are listed under "Needs attention", each with a [rebuild](admin.md#rebuild).
 

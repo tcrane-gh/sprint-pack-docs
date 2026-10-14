@@ -47,6 +47,6 @@ Each band of users has its own rate: $1.00 a user a month for the first 100, $0.
 
 ## Who supports it
 
-Sprint Pack is built and supported by one developer at Weave Commons. Email [support@sprintpack.weavecommons.com](mailto:support@sprintpack.weavecommons.com) for help; we reply within 2 business days. Security reports go to security@sprintpack.weavecommons.com, answered within 3 business days. See [support](support.md).
+Sprint Pack is built and supported by one developer at Weave Commons. Before Weave Commons, its developer spent seven years at Atlassian, including two building role-based access control for Confluence and five on Growth: onboarding and activation for Jira and Confluence, and guest access for external collaborators. Email [support@sprintpack.weavecommons.com](mailto:support@sprintpack.weavecommons.com) for help; we reply within 2 business days. Security reports go to security@sprintpack.weavecommons.com, answered within 3 business days. See [support](support.md).
 
 If Sprint Pack ever stopped being supported, nothing in your Jira would be lost. The app reads sprint history from Jira's own records and never edits issues. Its fields and pages go away when it's uninstalled, and **Unpublish all** on the admin page removes the board properties it published (it also does this itself on uninstall).

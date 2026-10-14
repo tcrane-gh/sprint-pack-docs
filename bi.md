@@ -18,7 +18,7 @@ title: BI tools
 
 This statement appears wherever you publish, word for word:
 
-> Publishing writes sprint totals for this board to a board property. Anyone who can see the board can read it through Jira's REST API. Totals count only issues the app can see. Issues with a security level that excludes the app are left out, so published totals can be lower than Jira's Sprint Report. No issue keys or names are published. Unpublish before uninstalling.
+> Publishing writes a board's sprint totals to a property on that board. Anyone who can see the board can read it through Jira's REST API. Totals count only issues the app can see. Issues with a security level that excludes the app are left out, so published totals can be lower than Jira's Sprint Report. No issue keys or names are published. Unpublish before uninstalling.
 
 **In the rollup property (`sprint-pack-rollup`),** per sprint: counts and estimates for committed, added, removed, completed, completed from the commitment, not completed, carried over, completed outside the sprint and re-estimated; the estimate change totals; [anomaly flags](anomalies.md); the sprint's name, dates and goal. Per board: its project, [labels](#labels-bi), unit and notices. Definitions: [how the numbers are counted](numbers.md).
 

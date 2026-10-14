@@ -11,22 +11,24 @@ Sprint Pack shows the same sprint view in four places, plus a portfolio across b
 
 | Where | What |
 |---|---|
-| Project sidebar → **Sprint scope** | [The full view](#project-page) for any board in the project |
+| A project's **Sprint scope** tab | [The full view](#project-page) for any board in the project |
 | A sprint's **…** menu → **Scope changes** | [The same view](#sprint-action), opened on that sprint |
 | Dashboards → **Sprint scope** gadget | [A compact view](#gadget) for one board, or a portfolio |
 | New dashboards → **Sprint scope** widget | [The same](#widget), with tiles when narrow |
-| Apps → **Sprint portfolio** | [Several boards side by side](#portfolio) |
+| Apps → **Sprint portfolio** | [Several boards side by side](#portfolio), and any one board's full view from there |
 
 <a id="project-page"></a>
 ## The Sprint scope page
 
 **One row per sprint: the active sprint plus the last 6 closed sprints (choose 3, 6, 10 or 15), newest first.**
 
+**Finding it:** under Jira's new navigation a project shows the **Sprint scope** tab only once someone adds it with **+** beside the project's tabs. Without the tab, the same view is in **Apps → Sprint portfolio**: a board's name there opens its view.
+
 - **Controls:** the board (the project's boards), how many sprints, issues or the board's estimates, and Refresh.
-- **Each row:** the sprint's name and state, its dates, its goal (hover for the full text), and its [buckets](numbers.md#buckets): Committed, Added, Removed, Completed, Not completed, Carried over, Re-estimated, and [Drift](numbers.md#drift).
+- **Each row:** the sprint's name and state, its dates, its goal, and its [buckets](numbers.md#buckets): Committed, Added, Removed, Completed, Not completed, Carried over, Re-estimated, and [Drift](numbers.md#drift).
 - **Flags:** a sprint with bad data shows an [anomaly](anomalies.md) label. Completion cells marked "≈" are [approximate](numbers.md#approximate).
 - **Computing:** a sprint not yet computed shows "computing" instead of numbers; the page refreshes itself. See [computing](numbers.md#computing).
-- **Updating:** a sprint being computed again (after an update changed the counting rules, or a [rebuild](admin.md#rebuild)) keeps its earlier numbers, marked "updating", until the new ones are ready. Exports leave it out until then.
+- **Updating:** a sprint being computed again (after an update changed the counting rules, or a [rebuild](admin.md#rebuild)) keeps its earlier numbers, marked "updating", until the new ones are ready. Exports leave it out until then. The label links to [updating](numbers.md#updating).
 - **Click any number** to see its issues, directly under the table: see [drill-down](#drill-down). Every row also has a "Search in Jira" link for the sprint's issues.
 - **Under the table:** one line on how it's counted ("Matches Jira's Sprint Report as you see it", or that it can't while the board's settings are unreadable), plus short status when it applies: issues hidden from you, issues the app can't see, approximate sprints, sprints left out of averages.
 - **"Couldn't check which issues you can see"** means Jira didn't answer when Sprint Pack asked which issues you can see, often because Jira was busy. No counts are shown rather than counts that might be wrong. Refresh, or open the page again, after a moment.
@@ -35,7 +37,7 @@ Sprint Pack shows the same sprint view in four places, plus a portfolio across b
 
 **No Scrum board in the project:** the page says so, since Sprint Pack counts sprints and Kanban boards have none, and links to the [portfolio](#portfolio), whose picker lists every board you can see.
 
-**Board admins** also see a "BI data for this board" panel here: publishing (when allowed), [labels](#labels), [working days](#working-days), the BI handoff, and the board's [inferred reopens](admin.md#inferred-reopens), when it has any. Jira decides who counts as a board admin: space admins on team-managed boards, the board's administrators on company-managed boards, and Jira admins everywhere.
+**Board admins** also see a "BI data for this board" panel here, and on the board's view in the Sprint portfolio: publishing (when allowed), [labels](#labels), [working days](#working-days), the BI handoff, and the board's [inferred reopens](admin.md#inferred-reopens), when it has any. Jira decides who counts as a board admin: space admins on team-managed boards, the board's administrators on company-managed boards, and Jira admins everywhere.
 
 <a id="sprint-action"></a>
 ## From a sprint's menu
@@ -114,6 +116,7 @@ Under the table, three charts over the same sprints (computing sprints are left 
 - **The active sprint** is in every chart, labelled "(in progress)", because its figures aren't final. Its completed bar is a separate "Completed so far" series in another colour. In [slides](exports.md#slides), its bars are hatched and its line points hollow.
 - Approximate sprints are marked in the table, not in the charts.
 - Charts follow the issues/estimates toggle. Hours are shown for time-estimate boards. Bars start at zero.
+- **Under each chart,** one sentence says what it shows, for example "Sprint 14 completed 12 of 15 issues committed", so the figures are there for screen readers and at a glance. The burndown has one too.
 
 <a id="portfolio"></a>
 ## Sprint portfolio
@@ -123,17 +126,17 @@ Under the table, three charts over the same sprints (computing sprints are left 
 - **Choose:** boards, a label or a project; the last N sprints per board, or sprints closed between two dates; issues or estimates; and grouping by label or project. Show. Your choice is remembered for next time.
 - **Anyone who can see a board can add it.** Every Scrum board you can see is in the pickers. Rows appear as each group of ten arrives.
 - **More than 50 boards** are shown 50 at a time, with **Next** and **Previous**. Every figure on the page, the group medians included, covers the 50 shown, and the page says which.
-- **Each board's name** opens its Sprint scope page; **board** next to it opens the board in Jira.
+- **Each board's name** opens that board's full Sprint scope view on this page, with a link back to the portfolio; **board** next to it opens the board in Jira.
 - **Columns:**
   - **Sprints:** closed sprints counted.
-  - **Last say/do:** the last closed sprint without an [anomaly flag](anomalies.md#left-out); hover for its name.
+  - **Last say/do:** the last closed sprint without an [anomaly flag](anomalies.md#left-out), named under the figure.
   - **Avg say/do, Velocity ratio, Scope change, Carry-over:** ratios of sums over the selected closed sprints. See [say/do](numbers.md#say-do), [velocity ratio](numbers.md#velocity-ratio), [scope change](numbers.md#scope-change), [carry-over](numbers.md#carry-over-rate).
-  - **In progress:** the active sprint, completed of committed so far, with added and removed.
+  - **In progress:** the active sprint, completed of committed so far, with added and removed, and the sprint's name.
   - **Trend:** see [below](#portfolio-trend).
   - **CSV / Excel:** that board's exports.
-- **Labels on a board row:** "≠ published" (the published totals differ from yours, because they count issues you can't see), "settings unreadable", "computing N", and anomaly flags.
+- **Labels on a board row:** "≠ published" (the published totals differ from yours, because they count issues you can't see), "settings unreadable", "computing N", and anomaly flags. Each label links to its explanation.
 - **Grouped:** each label or project gets a row with the median (and mean) of its boards' ratios, issue counts added up, and point totals only when every board uses the same unit, otherwise "mixed units". A board with several labels appears under each; boards with none sit under "(no label)". See [units](numbers.md#units).
-- **Slides and summary:** "Download for slides" and "Copy summary" work here too (see [exports](exports.md#slides)).
+- **Slides and summary:** "Download for slides" and "Show a summary to copy" work here too (see [exports](exports.md#slides)). Under the trend chart, one sentence gives each board's last say/do and how many rose or fell.
 - **When boards don't load:** if a group of boards fails to load, for example because Jira was busy, the error names those boards and offers Retry, which asks again for just those boards. They're left out of the table and the group medians rather than shown with old or empty figures.
 - **Large selections and the hourly budget:** checking which issues you can see costs about a point of Sprint Pack's [hourly budget for views](admin.md#budget) per issue. When a group of boards needs more than is left this hour, the error says how many points it needs; choose fewer boards or sprints, or try again after the top of the hour.
 - **While sprints compute,** the page asks again every 20 seconds, for the boards still computing only.
@@ -168,8 +171,9 @@ Under the table, three charts over the same sprints (computing sprints are left 
 **The ideal line runs from the scope at the start to zero at the planned end, flat across non-working days.** Jira keeps a board's working days in a setting Sprint Pack can't read, so:
 
 - **The default** is the site's time zone and Monday–Friday with no holidays. That's exactly Jira's setting for team-managed boards.
-- **For other settings,** a board admin or Jira admin opens **Working days** in the board panel on the Sprint scope page and enters the time zone, working weekdays and non-working dates (the same three sections as Jira's Board settings → Working days).
+- **For other settings,** a board admin or Jira admin opens **Working-day settings** under the burndown, or **Working days** in the board panel, and enters the time zone, working weekdays and non-working dates (the same three sections as Jira's Board settings → Working days).
 - **Or paste them:** the form links to the board's configuration in Jira. Select all, copy, and paste it into the form. Only the working-days part is kept.
+- **Use the default** asks first, since it replaces the time zone, days and dates entered.
 - The chart's subtitle names the settings used. Settings changed later in Jira need entering again.
 
 <a id="labels"></a>
