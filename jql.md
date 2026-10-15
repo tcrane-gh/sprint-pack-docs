@@ -58,16 +58,16 @@ Most functions take `(sprint, board)`, both optional.
 
 **A name that isn't found** may be on a board created in the last few hours: Sprint Pack reads the board list again before saying the name doesn't exist.
 
-**IDs are the safe choice.** A name that matches sprints on several boards is an error that lists their IDs.
+**IDs are the safe choice.** A name that matches more than one sprint or board is an error. It doesn't list the matches, because everyone who runs the search sees it, including people who can't see those boards. Add the board, or use the ID.
 
 - **Deleted sprints:** `addedAfterSprintStart`, `removedAfterSprintStart` and `reestimatedInSprint` still answer for a deleted sprint's ID, because the fields keep it. The other functions have nothing to answer for a deleted sprint (it has no issues or board columns any more), so they say so instead of returning an empty result.
 - **A sprint ID Jira says doesn't exist** may be a sprint deleted before Sprint Pack saw it, or one on a board whose filter isn't shared with the app. The error says both; Sprint Pack checks again within the hour, then less often.
 
+<a id="finding-a-sprints-id"></a>
 **Finding a sprint's ID:**
 
 - In Sprint Pack, open any count of the sprint: the query shown in the [drill-down](views.md#drill-down) contains the ID, for example `issue in completedInSprint(4123)`.
 - In Jira, the Sprint Report's address ends in `sprint=<ID>`.
-- An error about an ambiguous name lists the matching IDs.
 
 **Board IDs** are in the board's address: `…/boards/12`.
 
@@ -310,7 +310,7 @@ Jira keeps a function's error until Sprint Pack replaces it. Sprint Pack does th
 | "Sprint Pack is indexing "Sprint 12" (4123). Run the search again in a few minutes." | **Waiting for sprints to be indexed** | Nothing: the sprint is being [computed](numbers.md#computing), and Sprint Pack replaces the error with the result when it's done. If it doesn't clear, an admin can rebuild the sprint. |
 | "Sprint Pack can't read board 12's settings (its filter isn't shared with the app)…" | **Board settings Sprint Pack can't read** | Share the board's filter with its project, or with a group that includes the app. See [settings unreadable](numbers.md#settings-unreadable). |
 | "No sprint named "…"", "No sprint with ID …", "No board named "…"", "No board with ID …" | **Searches that name something that doesn't exist** | Fix the argument. Whoever saved the search (a filter, board or gadget) needs to change it. |
-| ""Sprint 12" matches 3 sprints: …" or ""…" matches 2 boards: …" | Same | Use the sprint ID it suggests, or add the board. |
+| ""Sprint 12" matches more than one sprint…" or ""…" matches more than one board…" | Same | Add the board, or use the ID (see [finding a sprint's ID](#finding-a-sprints-id)). |
 | ""…" is a deleted sprint (ID …). Pass the ID to query it." | Same | Use the ID. |
 | ""last 50" expands to 1200 sprints; add a board argument." or "The range matches … sprints" | Same | Add a board argument. |
 | "… is not a date. Use yyyy-MM-dd or an offset such as -90d." | Same | Fix the date. |
