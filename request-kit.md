@@ -34,7 +34,7 @@ Each band of users has its own rate: $1.00 a user a month for the first 100, $0.
 - **Read-only on issues.** It never edits issues. It writes only its own 8 read-only fields, its stored search results and, if an admin turns on BI publishing, its own board properties.
 - **Your permissions apply.** Views and files count only the issues the viewer can see, as Jira's Sprint Report does.
 - **No credentials.** It doesn't ask for or store passwords or API tokens.
-- **Personal data.** It stores Atlassian account IDs (for example, who added an issue to a sprint) and caches the matching display names for a day. It doesn't store issue summaries or descriptions. People can write a short reason for a scope change; that text is stored in Atlassian's Forge storage with its author's account ID.
+- **Personal data.** It stores Atlassian account IDs (for example, who added an issue to a sprint) and caches the matching display names for a day. It doesn't store issue summaries or descriptions. People can write a short reason for a scope change; that text is stored in Atlassian's Forge storage with its author's account ID. It also keeps each board's filter as Jira gives it, which can name people by account ID, and, for the "from outside the team" guess, the reporters of work taken on after the start and, while a board uses that signal, its projects' role members for up to six hours. Once a week it reports the account IDs it stores to Atlassian and erases the accounts Atlassian says are closed ([privacy policy](privacy.md#closed-accounts)).
 - The full answers are in the [security page](security.md), the [privacy policy](privacy.md) and the Privacy and Security tab of the Marketplace listing.
 
 ## What changes in your Jira
