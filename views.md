@@ -154,7 +154,7 @@ Under the table, four charts, one under another, over the same sprints (computin
 
 Boards differ in size, estimation and kind of work, so the trend compares each board with its own past rather than with the others. A line under the controls says so, with our support address: tell us how you compare boards.
 
-- **Choose:** boards, a label or a project; the last N sprints per board, or sprints closed between two dates; issues or estimates; and grouping by label or project. Show. Your choice is remembered for next time.
+- **Choose:** boards, a label or a project; the last N sprints per board, or sprints closed between two dates; issues or estimates; and grouping by label or project, then Show. Your choice is remembered and loads by itself next time; until you press Show, picking boards loads nothing.
 - **Anyone who can see a board can add it.** Every Scrum board you can see is in the pickers. Rows appear as each group of ten arrives.
 - **More than 50 boards** are shown 50 at a time, with **Next** and **Previous**. Every figure on the page, the group medians included, covers the 50 shown, and the page says which.
 - **Each board's name** opens that board's full Sprint scope view on this page, with a link back to the portfolio; **Open in Jira** next to it opens the board in Jira.
