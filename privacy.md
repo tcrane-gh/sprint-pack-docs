@@ -6,11 +6,13 @@ title: Privacy policy
 
 # Privacy policy
 
-Effective 15 October 2026. This policy covers Sprint Pack, an app for Jira Cloud sold on the Atlassian Marketplace by Weave Commons ("we").
+Effective 16 October 2026. This policy covers Sprint Pack, an app for Jira Cloud sold on the Atlassian Marketplace by Weave Commons ("we"). We, not Atlassian, are responsible for how Sprint Pack processes your data.
 
 ## Where your data lives
 
 Sprint Pack runs on Atlassian's Forge platform and has no server of its own. Everything it reads and stores stays in Atlassian's cloud, with your Jira site. We don't receive a copy of it.
+
+The app's storage is kept in the same country or region as your Jira site's data: your site's data residency location if your organization has chosen one, otherwise wherever Atlassian hosts your site. The app's logs are kept by Atlassian and aren't covered by data residency. Support email is stored in the United States (see "Services we use" below).
 
 ## What the app stores
 
