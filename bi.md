@@ -212,7 +212,7 @@ python3 -c "import getpass, keyring; s=getpass.getpass('Secret or token: '); u=i
 **The setup panel generates an Apps Script for your kind of token. It fills one tab per table and refreshes on a timer.**
 
 1. In your sheet: Extensions → Apps Script. Paste the script and save.
-2. Run `setToken()` once. It asks for the email and the token and stores them in **your user properties**, which nobody else who edits the script or the sheet can read.
+2. Run `setToken()` once. It asks for the email and the token and stores them in **your user properties**, not in the script. Anyone who can edit the script can change what your trigger runs under your account, and so reach the token: give edit access only to people you'd trust with it, or use a service account's scoped token.
 3. Run `refreshAll()` once and authorise it.
 4. Run `installDailyTrigger()` (or the hourly one).
 
@@ -221,7 +221,8 @@ python3 -c "import getpass, keyring; s=getpass.getpass('Secret or token: '); u=i
 - For a sheet a team shares, use the service account's token.
 - **Text that starts like a formula** (`=`, `+`, `-`, `@`), such as a sprint goal, is written as text, as in the [exports](exports.md), so it never runs in your sheet.
 - **Know this:** anyone with edit access to an Apps Script can change what it does with the data it fetches. And the data goes from Jira into your Google account under your own credential, like any export you make: "no egress" describes the app, not what you do with your credentials.
-- A revoked token shows as "401 from Jira: the token was revoked or lacks a scope" on the next run.
+- A revoked token shows as "401 from Jira: the token was revoked or lacks a scope" on the next run. Issue lists without `read:jira-work` show "401 from search" or "403 from search" with the same advice; any other error shows its status and Jira's message.
+- **The script's first line** gives its schema and its date, such as `script 2026-10-15`. Scripts from before 15 October 2026 blamed every issue-list error on the token's scope and stopped when Jira asked them to slow down (429); generate the script again from the setup panel and paste it over the old one.
 
 <a id="looker"></a>
 ## Looker Studio
@@ -281,7 +282,7 @@ Point columns are never added across boards with different units: `label_metrics
 - the site and cloud ID; every board with its project, labels, state, last write and health;
 - what the app can check: the site switch, which boards are published, and whether it can read each board's filter (if it can't, the service account probably can't either, so the handoff names the board and says to ask the filter's owner to share it);
 - what the app can't check (the service account, its group and its token), as unchecked steps for the org admin, with the symptom of each missed step;
-- both Power Query snippets, the script command and the routes in this version;
+- both Power Query snippets, the script command and the routes in this version. The admin page's handoff finds boards; a board panel's handoff reads only that board, and if it isn't published yet, it says to publish it first;
 - a link to these definitions.
 
 It never contains a credential. Before it's produced, the app checks the generated snippets and scripts for anything that looks like a token, and the whole document for an Atlassian API token. If a board's name or one of its labels looks like one, the handoff isn't produced and the message names the board: rename it or remove the label.

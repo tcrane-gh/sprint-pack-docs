@@ -51,6 +51,7 @@ When the numbers can differ:
 Issues you don't have permission to view are left out of your counts. Jira's Sprint Report leaves them out for you too.
 
 - The view shows how many were left out, for example "3 issues hidden from you".
+- **A rare exception:** Sprint Pack tells which issues you can see by comparing counts. If one issue is hidden from you and a different one is hidden from the app (by a security level that leaves the app out), the counts match and your figures include the issue you can't see. Its key and summary are never shown.
 - On a [published](bi.md#publishing) board, the view also shows the published totals where they differ ("Published to BI: 18 committed, 15 completed"), and the portfolio marks the board "≠ published". Published totals count what the app can see, which can be more than you can.
 
 <a id="app-unseen"></a>
@@ -119,7 +120,7 @@ Exports, BI data, the [`addedAfterSprintStart()`](jql.md#addedaftersprintstart) 
 Issues that left the sprint after its start and were still gone at the close.
 
 - An issue taken on after the start and removed again is both taken on and removed.
-- Changes Jira writes when a sprint is reopened or deleted aren't removals: they don't count.
+- Changes Jira writes when a sprint is reopened or deleted aren't removals: they don't count. The [burndown](views.md#burndown) still lists them, because it follows Jira's own burndown chart, which does.
 - **Limit for sprints computed from history:** to find an issue that left a sprint before Sprint Pack was watching, the app searches the sprint's board filters. An issue that has since left every board filter (moved to another project, or the filter edited) can't be found, so it's missing from Removed. Sprints Sprint Pack saw happen live aren't affected.
 
 <a id="completed"></a>
@@ -128,7 +129,7 @@ Issues that left the sprint after its start and were still gone at the close.
 Issues in the board's last column at the sprint's close, inside the board's filter.
 
 - **Done at the start doesn't count:** an issue already in the last column at the start and still there at the close is "completed outside of this sprint". An issue done at the start, reopened and done again during the sprint is completed in it.
-- **While the sprint is active,** completed means in the last column now ("so far"). The views read the active sprint's statuses when they load (at most a minute old). If Sprint Pack's hourly budget for views is used up, they use the statuses from the last hourly update and say so; **Refresh** after the top of the hour.
+- **While the sprint is active,** completed means in the last column now ("so far"), inside the board's filter, as at the close. The views read the active sprint's statuses when they load (at most a minute old). If Sprint Pack's hourly budget for views is used up, they use the statuses from the last hourly update and say so; **Refresh** after the top of the hour.
 - The board's columns are the ones Sprint Pack saved at the close. For a sprint that closed before Sprint Pack saw it, today's columns are used: see [approximate](#approximate).
 - **Completed = committed and done + taken on and done.** The views show the two parts as "9 + 2" when work taken on after the start was done. The first part is [completed from the commitment](#buckets), which drives [say/do](#say-do). The drill-down searches are `issue in completedInSprint(X) AND issue in committedAtSprintStart(X)` and `issue in completedInSprint(X) AND issue not in committedAtSprintStart(X)`.
 
